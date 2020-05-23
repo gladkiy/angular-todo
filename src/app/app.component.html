@@ -1,0 +1,41 @@
+<div class="container mt-5">
+    <h3>ToDo list Angular</h3>
+        <form>
+            <ol class="pl-0">
+                <li *ngFor="let item of todos; let i = index">
+                    <div class="form-row align-items-center">
+                        <div class="col-auto">
+                            <input type="text" 
+                                class="form-control border-top-0 border-left-0 border-right-0 rounded-0"
+                                placeholder="Add Task..."
+                                [ngClass]="item.done && item.text !== '' ? 'line-through' : ''"
+                                (keyup)="add(item.id, $event)"
+                                [disabled]="item.done"
+                                [(ngModel)]="item.text"
+                                [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="col-auto">
+                            <div class="custom-control custom-checkbox was-validated">
+                                <input type="checkbox"
+                                    class="custom-control-input"
+                                    [attr.id]="'customControlAutosizing' + item.id"
+                                    [(ngModel)]="item.done"
+                                    [ngModelOptions]="{standalone: true}">
+                                <label class="custom-control-label"
+                                    [attr.for]="'customControlAutosizing' + item.id"></label>
+                            </div>
+                        </div>
+                        <div *ngIf="item.text !== ''" class="col-auto">
+                            <i (click)="move(i, 'up')" class="fas fa-arrow-alt-circle-up"></i>
+                        </div>
+                        <div *ngIf="item.text !== ''" class="col-auto">
+                            <i (click)="move(i, 'down')" class="fas fa-arrow-alt-circle-down"></i>
+                        </div>
+                        <div *ngIf="item.text !== ''" class="col-auto">
+                            <i (click)="remove(i)" class="fas fa-times-circle"></i>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </form>
+</div>
